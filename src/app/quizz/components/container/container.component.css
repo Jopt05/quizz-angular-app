@@ -1,3 +1,8 @@
 .option {
+  cursor: pointer;
+  transition: opacity .2s ease-in-out;
+}
 
+.option:hover {
+  opacity: .8;
 }

@@ -1,21 +1,38 @@
-<div class="container-fluid">
+<div class="container-fluid my-5">
   <div class="container py-5 px-4 border border-info border-2">
     <div class="row">
-      <div class="col-6 d-flex flex-column justify-content-center">
+      <div class="col-sm-6 col-12 d-flex flex-column justify-content-center">
         <div class="row">
-          <p *ngIf="currentQuestion">
+          <p *ngIf="currentQuestion" class="text-center fw-bold">
             {{ currentQuestion.question }}
           </p>
         </div>
+        <div *ngIf="hasStarted" class="row container mx-auto py-2 justify-self-end">
+          <p class="fw-bold text-center m-0">
+            {{ timeLeft }}
+          </p>
+        </div>
       </div>
-      <div class="col-6">
-        <div *ngIf="currentQuestion" class="row option d-flex justify-content-center">
-          <div *ngFor="let option of currentQuestion.options; let i = index">
-            <p class="text-center">
+      <div class="col-sm-6 col-12">
+        <div *ngIf="currentQuestion" class="row d-flex justify-content-center">
+          <div (click)="getAnswer(option)" *ngFor="let option of currentQuestion.options; let i = index" class="d-flex rounded-1 align-items-center justify-content-center bg-primary mt-2 mb-2 py-2 option">
+            <p class="text-center fw-semibold text-light m-0">
               {{ i + 1 }}. {{ option }}
             </p>
           </div>
         </div>
+        <div *ngIf="feedbackMessage" class="row d-flex justify-content-center align-items-center rounded-2 mt-3" [class]="(isError) ? 'bg-danger' : 'bg-success'">
+          <p class="text-center fw-bold my-2 text-light">
+            {{  feedbackMessage }}
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row d-flex mt-5">
+      <div *ngIf="!hasStarted" class="container d-flex justify-content-center">
+        <button (click)="start()" type="button" class="btn btn-info">
+          Iniciar
+        </button>
       </div>
     </div>
   </div>
