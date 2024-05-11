@@ -1,0 +1,22 @@
+<div class="container-fluid">
+  <div class="container py-5 px-4 border border-info border-2">
+    <div class="row">
+      <div class="col-6 d-flex flex-column justify-content-center">
+        <div class="row">
+          <p *ngIf="currentQuestion">
+            {{ currentQuestion.question }}
+          </p>
+        </div>
+      </div>
+      <div class="col-6">
+        <div *ngIf="currentQuestion" class="row option d-flex justify-content-center">
+          <div *ngFor="let option of currentQuestion.options; let i = index">
+            <p class="text-center">
+              {{ i + 1 }}. {{ option }}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
