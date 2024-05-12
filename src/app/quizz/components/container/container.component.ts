@@ -33,7 +33,6 @@ export class ContainerComponent implements OnInit {
       if(this.timeLeft > 0) {
         this.timeLeft--;
       } else {
-        console.log("Log")
         this.feedbackMessage = "Te has quedado sin tiempo!";
         this.isError = true;
         this.hasStarted = false;
@@ -49,6 +48,7 @@ export class ContainerComponent implements OnInit {
 
   start() {
     this.hasStarted = true;
+    this.currentQuestion = this.questions[0];
     this.feedbackMessage = "";
     this.startTimer();
   }
@@ -60,21 +60,30 @@ export class ContainerComponent implements OnInit {
     if( this.currentQuestion.answer == answer ) {
       this.isError = false;
       this.feedbackMessage = "Respuesta correcta!";
-      this.questionIndex = this.questionIndex + 1;
+      if( this.questionIndex == this.questions.length - 1 ) {
+        this.questionIndex = 0;
+        this.hasStarted = false;
+        this.pauseTimer();
+        return;
+      } else {
+        this.questionIndex = this.questionIndex + 1;
+      }
       setTimeout(() => {
         this.feedbackMessage = "";
         this.currentQuestion = this.questions[this.questionIndex];
         this.startTimer();
         return;
-      }, 3000);
+      }, 1000);
       return;
     };
     this.isError = true;
     this.feedbackMessage = "Respuesta incorrecta!";
-    this.hasStarted = false;
-    this.questionIndex = 0;
-    this.currentQuestion = this.questions[this.questionIndex];
     this.pauseTimer();
+    setTimeout(() => {
+      this.hasStarted = false;
+      this.questionIndex = 0;
+      this.currentQuestion = this.questions[this.questionIndex]
+    }, 1000);;
   }
 
 }

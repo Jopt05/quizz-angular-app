@@ -11,6 +11,6 @@ export class QuizzService {
   constructor() { }
 
   getQuestions() {
-    return {...this._questions}
+    return [...this._questions]
   }
 }
